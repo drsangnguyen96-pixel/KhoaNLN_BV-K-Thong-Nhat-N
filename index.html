@@ -72,12 +72,32 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Responsive Mobile */
+		/* Responsive Mobile Tối Ưu */
         @media (max-width: 768px) {
-            body { flex-direction: column; overflow: auto; height: auto;}
-            .sidebar { width: 100%; height: auto; max-height: 40vh; overflow-y: auto; }
-            .main-content { height: 60vh; }
+            body { 
+                flex-direction: column; 
+                overflow-y: auto; 
+                height: auto; 
+            }
+            .sidebar { 
+                width: 100%; 
+                height: auto; 
+                max-height: 30vh; /* Thu gọn menu trên để nhường chỗ cho form */
+                overflow-y: auto; 
+                border-bottom: 2px solid #a0aec0;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            }
+            .main-content { 
+                flex-grow: 1; 
+                height: auto; 
+                min-height: 80vh; 
+                overflow: visible;
+                padding-bottom: 50px; /* Thêm khoảng trống ở đáy để không bị che nút */
+            }
+            iframe.form-frame {
+                height: 100vh; /* Ép khung form giãn dài hết cỡ theo màn hình */
+                min-height: 800px; /* Đảm bảo form không bao giờ bị bóp méo */
+            }
         }
         
         /* IFRAME STYLE TỐI ƯU HIỂN THỊ */
