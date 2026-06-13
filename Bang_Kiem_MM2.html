@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đánh Giá MSCT Mạch Máu Chi Dưới (Top-Down)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #edf2f7;
+            color: #2d3748;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #2b6cb0;
+            padding-bottom: 15px;
+        }
+        .header h1 {
+            color: #2b6cb0;
+            margin: 0 0 5px 0;
+            font-size: 1.8em;
+        }
+        .section {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .section-title {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+        }
+        .section-title span {
+            background: #3182ce;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            margin-right: 15px;
+        }
+        .section-content {
+            padding: 20px;
+            background: #fafcff;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #4a5568;
+        }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .radio-inline {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 15px;
+            font-weight: normal;
+        }
+        .radio-inline input { margin-right: 5px; }
+        .report-box {
+            background: #fffaf0;
+            border: 2px solid #ed8936;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .report-box h3 {
+            color: #dd6b20;
+            margin-top: 0;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .copy-btn {
+            background: #ed8936;
+            color: white;
+            border: none;
+            padding: 5px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: 0.2s;
+        }
+        .copy-btn:hover { background: #dd6b20; }
+        textarea {
+            width: 100%;
+            height: 250px;
+            padding: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1.05em;
+            line-height: 1.6;
+            box-sizing: border-box;
+            background: #ffffff;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>BẢNG ĐÁNH GIÁ MSCT MẠCH MÁU CHI DƯỚI</h1>
+        <p style="margin:0; color:#718096;">Hệ thống hóa theo nguyên tắc Top-Down Approach</p>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span>1</span> TẦNG DÒNG VÀO (INFLOW) - HỆ CHỦ & CHẬU</div>
+        <div class="section-content">
+            <div class="form-group">
+                <label>Động mạch chủ bụng (AAA/AOD):</label>
+                <label class="radio-inline"><input type="radio" name="aorta" value="Không phát hiện bất thường" checked> Bình thường</label>
+                <label class="radio-inline"><input type="radio" name="aorta" value="Phình động mạch chủ bụng dạng túi"> Phình dạng túi</label>
+                <label class="radio-inline"><input type="radio" name="aorta" value="Phình động mạch chủ bụng hình thoi"> Phình hình thoi</label>
+                <label class="radio-inline"><input type="radio" name="aorta" value="Hẹp/Tắc động mạch chủ bụng do xơ vữa"> Hẹp/Tắc do xơ vữa</label>
+            </div>
+            <div class="grid-2" style="margin-bottom: 15px;">
+                <div><input type="text" id="aorta-size" placeholder="Kích thước khối phình (VD: 40x42mm)"></div>
+                <div><input type="text" id="aorta-thrombus" placeholder="Huyết khối bám thành (VD: dày 16mm)"></div>
+            </div>
+            
+            <label>Hệ Động mạch Chậu (Chung / Ngoài / Trong):</label>
+            <div class="grid-2">
+                <div>
+                    <strong>Bên Phải (P):</strong>
+                    <select id="iliac-right">
+                        <option value="bình thường">Bình thường</option>
+                        <option value="hẹp nhẹ">Hẹp nhẹ</option>
+                        <option value="hẹp nặng">Hẹp nặng</option>
+                        <option value="tắc không hoàn toàn">Tắc không hoàn toàn</option>
+                        <option value="tắc hoàn toàn">Tắc hoàn toàn</option>
+                    </select>
+                </div>
+                <div>
+                    <strong>Bên Trái (T):</strong>
+                    <select id="iliac-left">
+                        <option value="bình thường">Bình thường</option>
+                        <option value="hẹp nhẹ">Hẹp nhẹ</option>
+                        <option value="hẹp nặng">Hẹp nặng</option>
+                        <option value="tắc không hoàn toàn">Tắc không hoàn toàn</option>
+                        <option value="tắc hoàn toàn">Tắc hoàn toàn</option>
+                    </select>
+                </div>
+            </div>
+            <input type="text" id="iliac-note" placeholder="Ghi chú thêm (VD: Vôi hóa nặng, huyết khối...)" style="margin-top: 10px;">
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span>2</span> TẦNG DÒNG RA (OUTFLOW) - HỆ ĐÙI & KHOEO</div>
+        <div class="section-content">
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Động mạch Đùi (Chung/Sâu/Nông) Bên (P):</label>
+                    <select id="femoral-right">
+                        <option value="bình thường">Bình thường</option>
+                        <option value="có mảng xơ vữa ngã ba đùi chung">Xơ vữa ngã ba đùi chung</option>
+                        <option value="tắc động mạch đùi nông">Tắc SFA</option>
+                        <option value="hẹp nặng động mạch đùi nông">Hẹp SFA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Động mạch Đùi (Chung/Sâu/Nông) Bên (T):</label>
+                    <select id="femoral-left">
+                        <option value="bình thường">Bình thường</option>
+                        <option value="có mảng xơ vữa ngã ba đùi chung">Xơ vữa ngã ba đùi chung</option>
+                        <option value="tắc động mạch đùi nông">Tắc SFA</option>
+                        <option value="hẹp nặng động mạch đùi nông">Hẹp SFA</option>
+                    </select>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Động mạch Khoeo Bên (P):</label>
+                    <select id="popliteal-right">
+                        <option value="thông suốt">Thông suốt</option>
+                        <option value="hẹp khu trú">Hẹp khu trú</option>
+                        <option value="tắc hoàn toàn">Tắc hoàn toàn</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Động mạch Khoeo Bên (T):</label>
+                    <select id="popliteal-left">
+                        <option value="thông suốt">Thông suốt</option>
+                        <option value="hẹp khu trú">Hẹp khu trú</option>
+                        <option value="tắc hoàn toàn">Tắc hoàn toàn</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title"><span>3</span> TẦNG MẠCH NHẬN (RUN-OFF) - HỆ DƯỚI GỐI & BÀN CHÂN</div>
+        <div class="section-content">
+            <label>Tổn thương Động mạch cẳng chân (Chày trước / Chày sau / Mác):</label>
+            <input type="text" id="tibial-lesion" placeholder="Mô tả tổn thương (VD: Tắc ĐM chày trước (P) đoạn 1/3 giữa, chày sau và mác bình thường...)">
+            
+            <div class="grid-2" style="margin-top: 15px;">
+                <div class="form-group">
+                    <label>Tuần hoàn bàng hệ qua gối / cẳng chân:</label>
+                    <select id="collateral">
+                        <option value="phát triển tốt">Phát triển tốt</option>
+                        <option value="kém/yếu">Kém / Yếu</option>
+                        <option value="không ghi nhận bàng hệ">Không ghi nhận</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Cung ĐM mu chân & gan bàn chân (Pedal Arch):</label>
+                    <select id="pedal-arch">
+                        <option value="dẫn lưu thuốc tốt, nguyên vẹn">Dẫn lưu thuốc tốt, nguyên vẹn</option>
+                        <option value="dẫn lưu chậm, yếu">Dẫn lưu chậm, yếu</option>
+                        <option value="mất hoàn toàn (bàn chân sa mạc)">Mất hoàn toàn</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="report-box">
+        <h3>
+            TỔNG HỢP KẾT QUẢ HÌNH THÁI GIẢI PHẪU
+            <button class="copy-btn" onclick="copyReport()">Sao chép vào HIS</button>
+        </h3>
+        <textarea id="final-report" readonly></textarea>
+    </div>
+</div>
+
+<script>
+    function generateReport() {
+        // Thu thập dữ liệu Inflow
+        let aortaStatus = document.querySelector('input[name="aorta"]:checked').value;
+        let aortaSize = document.getElementById('aorta-size').value.trim();
+        let aortaThrombus = document.getElementById('aorta-thrombus').value.trim();
+        
+        let aortaStr = aortaStatus;
+        if(aortaStatus.includes("Phình")) {
+            if(aortaSize) aortaStr += `, kích thước ${aortaSize}`;
+            if(aortaThrombus) aortaStr += `, lớp huyết khối ${aortaThrombus}`;
+        }
+
+        let iliacR = document.getElementById('iliac-right').value;
+        let iliacL = document.getElementById('iliac-left').value;
+        let iliacNote = document.getElementById('iliac-note').value.trim();
+        let iliacStr = `ĐM chậu (P): ${iliacR}. ĐM chậu (T): ${iliacL}.`;
+        if (iliacNote) iliacStr += ` Ghi chú: ${iliacNote}`;
+
+        // Thu thập dữ liệu Outflow
+        let femR = document.getElementById('femoral-right').value;
+        let femL = document.getElementById('femoral-left').value;
+        let popR = document.getElementById('popliteal-right').value;
+        let popL = document.getElementById('popliteal-left').value;
+
+        // Thu thập dữ liệu Run-off
+        let tibial = document.getElementById('tibial-lesion').value.trim() || "Không phát hiện bất thường rõ rệt.";
+        let collateral = document.getElementById('collateral').value;
+        let pedal = document.getElementById('pedal-arch').value;
+
+        // Định dạng văn bản báo cáo
+        let report = `MÔ TẢ HÌNH ẢNH MSCT MẠCH MÁU CHI DƯỚI:\n`;
+        report += `(Đánh giá theo cấu trúc Top-Down)\n\n`;
+        
+        report += `1. TẦNG DÒNG VÀO (INFLOW):\n`;
+        report += `- Động mạch chủ bụng: ${aortaStr}.\n`;
+        report += `- Hệ động mạch chậu: ${iliacStr}\n\n`;
+
+        report += `2. TẦNG DÒNG RA (OUTFLOW):\n`;
+        report += `- Động mạch đùi: Bên (P) ${femR}; Bên (T) ${femL}.\n`;
+        report += `- Động mạch khoeo: Bên (P) ${popR}; Bên (T) ${popL}.\n\n`;
+
+        report += `3. TẦNG GIƯỜNG MẠCH NHẬN (RUN-OFF):\n`;
+        report += `- Hệ động mạch cẳng chân: ${tibial}\n`;
+        report += `- Tuần hoàn bàng hệ: ${collateral}.\n`;
+        report += `- Cung mạch bàn chân (Pedal arch): ${pedal}.\n`;
+
+        // Đẩy ra màn hình
+        document.getElementById('final-report').value = report;
+    }
+
+    // Hàm sao chép clipboard
+    function copyReport() {
+        let copyText = document.getElementById("final-report");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(copyText.value);
+        
+        let btn = document.querySelector('.copy-btn');
+        let originalText = btn.innerText;
+        btn.innerText = "Đã sao chép!";
+        btn.style.background = "#48bb78";
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = "#ed8936";
+        }, 2000);
+    }
+
+    // Gắn sự kiện (Event Listeners) để cập nhật real-time
+    document.querySelectorAll('input, select').forEach(input => {
+        input.addEventListener('change', generateReport);
+        input.addEventListener('input', generateReport);
+    });
+
+    // Khởi tạo lần đầu
+    generateReport();
+</script>
+
+</body>
+</html>

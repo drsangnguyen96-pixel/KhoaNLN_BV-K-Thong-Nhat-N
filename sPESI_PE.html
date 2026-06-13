@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thang điểm sPESI</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; text-align: center; }
+        .item { margin-bottom: 10px; }
+        .result-box { margin-top: 20px; padding: 15px; background: #fff0f5; border-left: 4px solid #c0392b; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Thang điểm sPESI (Mức độ nghiêm trọng của PE)</h2>
+    <form id="spesiForm">
+        <div class="item"><input type="checkbox" value="1"> Tuổi > 80 (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Tiền sử ung thư (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Tiền sử bệnh tim phổi mãn tính (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Nhịp tim >= 110 lần/phút (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Huyết áp tâm thu < 100 mmHg (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> SpO2 < 90% (+1)</div>
+    </form>
+    <div class="result-box">
+        <p>Tổng điểm: <span id="score">0</span></p>
+        <p>Đánh giá: <span id="interpretation">Nguy cơ thấp (Tỷ lệ tử vong 30 ngày khoảng 1%)</span></p>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('spesiForm');
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    const scoreSpan = document.getElementById('score');
+    const interpretationSpan = document.getElementById('interpretation');
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', calculateScore);
+    });
+
+    function calculateScore() {
+        let total = 0;
+        checkboxes.forEach(cb => {
+            if (cb.checked) total += parseInt(cb.value);
+        });
+        scoreSpan.textContent = total;
+        
+        if (total >= 1) {
+            interpretationSpan.textContent = "Nguy cơ cao (Tỷ lệ tử vong 30 ngày khoảng 10.9%)";
+            interpretationSpan.style.color = "red";
+        } else {
+            interpretationSpan.textContent = "Nguy cơ thấp (Tỷ lệ tử vong 30 ngày khoảng 1%)";
+            interpretationSpan.style.color = "green";
+        }
+    }
+</script>
+</body>
+</html>

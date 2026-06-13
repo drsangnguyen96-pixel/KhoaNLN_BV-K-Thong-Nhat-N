@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thang điểm Wells cho DVT</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; text-align: center; }
+        .item { margin-bottom: 10px; }
+        .result-box { margin-top: 20px; padding: 15px; background: #e8f4f8; border-left: 4px solid #3498db; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Thang điểm Wells đánh giá DVT</h2>
+    <form id="wellsDvtForm">
+        <div class="item"><input type="checkbox" value="1"> Ung thư đang hoạt động (điều trị trong 6 tháng hoặc đang chăm sóc giảm nhẹ) (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Liệt, liệt nhẹ hoặc mới bó bột chi dưới (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Nằm liệt giường > 3 ngày hoặc đại phẫu trong 12 tuần qua (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Đau chói dọc theo hệ tĩnh mạch sâu (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Sưng toàn bộ chân (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Vòng chân sưng > 3 cm so với chân không có triệu chứng (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Phù ấn lõm chỉ ở chân có triệu chứng (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Tĩnh mạch nông bàng hệ (không phải tĩnh mạch trướng) (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> Tiền sử DVT đã được ghi nhận (+1)</div>
+        <div class="item"><input type="checkbox" value="-2"> Chẩn đoán thay thế có khả năng cao hơn hoặc bằng DVT (-2)</div>
+    </form>
+    <div class="result-box">
+        <p>Tổng điểm: <span id="score">0</span></p>
+        <p>Đánh giá: <span id="interpretation">Nguy cơ thấp (Ít có khả năng)</span></p>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('wellsDvtForm');
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    const scoreSpan = document.getElementById('score');
+    const interpretationSpan = document.getElementById('interpretation');
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', calculateScore);
+    });
+
+    function calculateScore() {
+        let total = 0;
+        checkboxes.forEach(cb => {
+            if (cb.checked) total += parseInt(cb.value);
+        });
+        scoreSpan.textContent = total;
+        
+        if (total >= 2) {
+            interpretationSpan.textContent = "Khả năng cao mắc DVT";
+            interpretationSpan.style.color = "red";
+        } else {
+            interpretationSpan.textContent = "Ít có khả năng mắc DVT";
+            interpretationSpan.style.color = "green";
+        }
+    }
+</script>
+</body>
+</html>

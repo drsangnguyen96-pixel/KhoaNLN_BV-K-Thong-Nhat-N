@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thang điểm Caprini</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .container { max-width: 700px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; text-align: center; }
+        .category { margin-top: 15px; font-weight: bold; color: #16a085; }
+        .item { margin-bottom: 5px; margin-left: 15px; }
+        .result-box { margin-top: 20px; padding: 15px; background: #eef7f0; border-left: 4px solid #27ae60; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Thang điểm Caprini (Nguy cơ VTE Ngoại khoa)</h2>
+    <form id="capriniForm">
+        <div class="category">Mỗi yếu tố 1 điểm:</div>
+        <div class="item"><input type="checkbox" value="1"> Tuổi 41 - 60</div>
+        <div class="item"><input type="checkbox" value="1"> Tiểu phẫu, BMI > 25, Có thai/hậu sản, Dùng thuốc tránh thai...</div>
+        
+        <div class="category">Mỗi yếu tố 2 điểm:</div>
+        <div class="item"><input type="checkbox" value="2"> Tuổi 61 - 74</div>
+        <div class="item"><input type="checkbox" value="2"> Phẫu thuật nội soi khớp, Đại phẫu hở > 45 phút</div>
+        <div class="item"><input type="checkbox" value="2"> Ung thư, Nằm bất động > 72 giờ</div>
+
+        <div class="category">Mỗi yếu tố 3 điểm:</div>
+        <div class="item"><input type="checkbox" value="3"> Tuổi >= 75</div>
+        <div class="item"><input type="checkbox" value="3"> Tiền sử VTE (cá nhân hoặc gia đình), Rối loạn đông máu (Factor V Leiden...)</div>
+
+        <div class="category">Mỗi yếu tố 5 điểm:</div>
+        <div class="item"><input type="checkbox" value="5"> Phẫu thuật thay khớp chi dưới theo chương trình</div>
+        <div class="item"><input type="checkbox" value="5"> Gãy xương hông/chậu/chân, Đột quỵ < 1 tháng, Đa chấn thương < 1 tháng</div>
+    </form>
+    <div class="result-box">
+        <p>Tổng điểm: <span id="score">0</span></p>
+        <p>Đánh giá: <span id="interpretation">Nguy cơ rất thấp (0 điểm)</span></p>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('capriniForm');
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    const scoreSpan = document.getElementById('score');
+    const interpretationSpan = document.getElementById('interpretation');
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', calculateScore);
+    });
+
+    function calculateScore() {
+        let total = 0;
+        checkboxes.forEach(cb => {
+            if (cb.checked) total += parseInt(cb.value);
+        });
+        scoreSpan.textContent = total;
+        
+        if (total === 0) {
+            interpretationSpan.textContent = "Nguy cơ rất thấp - Đề nghị: Vận động sớm";
+        } else if (total <= 2) {
+            interpretationSpan.textContent = "Nguy cơ thấp - Đề nghị: Áp dụng Bơm hơi áp lực ngắt quãng (IPC)";
+        } else if (total <= 4) {
+            interpretationSpan.textContent = "Nguy cơ trung bình - Đề nghị: Thuốc chống đông hoặc IPC";
+        } else {
+            interpretationSpan.textContent = "Nguy cơ cao - Đề nghị: Thuốc chống đông kết hợp IPC";
+        }
+    }
+</script>
+</body>
+</html>

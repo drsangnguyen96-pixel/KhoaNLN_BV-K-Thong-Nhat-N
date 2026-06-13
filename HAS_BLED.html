@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thang điểm HAS-BLED</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; box-shadow: 2px 2px 10px rgba(0,0,0,0.1); }
+        h2 { color: #2c3e50; text-align: center; }
+        .item { margin-bottom: 10px; }
+        .result-box { margin-top: 20px; padding: 15px; background: #fff4e6; border-left: 4px solid #d35400; font-weight: bold; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Thang điểm HAS-BLED (Nguy cơ chảy máu)</h2>
+    <form id="hasbledForm">
+        <div class="item"><input type="checkbox" value="1"> <strong>H</strong>ypertension: Tăng huyết áp (HATT > 160 mmHg) (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> <strong>A</strong>bnormal Renal: Bệnh thận mãn tính / chạy thận (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> <strong>A</strong>bnormal Liver: Xơ gan / suy gan (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> <strong>S</strong>troke: Tiền sử đột quỵ (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> <strong>B</strong>leeding: Tiền sử chảy máu nặng / nội tạng (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> <strong>L</strong>abile INRs: INR dao động / khó kiểm soát (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> <strong>E</strong>lderly: Tuổi > 65 (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> <strong>D</strong>rugs: Dùng thuốc chống tiểu cầu (Aspirin, NSAIDs...) (+1)</div>
+        <div class="item"><input type="checkbox" value="1"> <strong>D</strong>rugs/Alcohol: Lạm dụng rượu (> 8 ly/tuần) (+1)</div>
+    </form>
+    <div class="result-box">
+        <p>Tổng điểm: <span id="score">0</span></p>
+        <p>Đánh giá: <span id="interpretation">Nguy cơ thấp</span></p>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('hasbledForm');
+    const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    const scoreSpan = document.getElementById('score');
+    const interpretationSpan = document.getElementById('interpretation');
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', calculateScore);
+    });
+
+    function calculateScore() {
+        let total = 0;
+        checkboxes.forEach(cb => {
+            if (cb.checked) total += parseInt(cb.value);
+        });
+        scoreSpan.textContent = total;
+        
+        if (total >= 3) {
+            interpretationSpan.textContent = "Nguy cơ chảy máu CAO (Cần theo dõi sát khi dùng thuốc chống đông)";
+            interpretationSpan.style.color = "red";
+        } else {
+            interpretationSpan.textContent = "Nguy cơ chảy máu thấp";
+            interpretationSpan.style.color = "green";
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Đánh Giá Chu Phẫu - Khoa Ngoại Lồng Ngực</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #e2e8f0;
+            color: #2d3748;
+            line-height: 1.5;
+            padding: 20px;
+            margin: 0;
+            -webkit-text-size-adjust: 100%;
+        }
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3182ce;
+        }
+        .header h1 {
+            color: #2b6cb0;
+            margin: 0 0 8px 0;
+            font-size: 1.6em;
+        }
+        .header h2 {
+            color: #4a5568;
+            font-size: 1.1em;
+            margin: 0;
+            font-weight: normal;
+        }
+        .section {
+            background: #f7fafc;
+            border: 1px solid #cbd5e0;
+            border-left: 5px solid #4299e1;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+        .section h3 {
+            color: #2c5282;
+            margin-top: 0;
+            border-bottom: 1px dashed #a0aec0;
+            padding-bottom: 8px;
+            font-size: 1.1em;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+        label {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            cursor: pointer;
+            font-size: 0.95em;
+            padding: 4px 0;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px; 
+            background-color: #fff;
+        }
+        input[type="checkbox"], input[type="radio"] {
+            margin-right: 10px;
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .radio-group {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            border-radius: 6px;
+        }
+        .radio-group h4 {
+            margin: 0 0 10px 0;
+            color: #2b6cb0;
+            font-size: 1em;
+        }
+        .vein-group {
+            background: #f0fff4;
+            border-left-color: #48bb78;
+        }
+        
+        .calc-btn {
+            display: block;
+            width: 100%;
+            background-color: #dd6b20;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            margin-top: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.3s;
+            text-transform: uppercase;
+        }
+        .calc-btn:hover {
+            background-color: #c05621;
+        }
+
+        .results-container {
+            display: none; 
+            background: #ebf8ff;
+            border: 2px solid #3182ce;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .results-container.show {
+            display: block;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .patient-info-result {
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #bee3f8;
+            margin-bottom: 15px;
+        }
+        .patient-info-result h4 {
+            margin: 0 0 10px 0;
+            color: #2b6cb0;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 8px;
+        }
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #90cdf4;
+        }
+        .result-item {
+            background: #fff;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #bee3f8;
+            font-size: 0.95em;
+        }
+        .result-item strong {
+            display: block;
+            margin-bottom: 4px;
+            color: #2c5282;
+        }
+        .synthesis-box {
+            background: #fffaf0;
+            border-left: 5px solid #dd6b20;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        .synthesis-title {
+            font-weight: bold;
+            color: #c05621;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        .score-highlight {
+            font-weight: bold;
+            color: #e53e3e;
+            font-size: 1.1em;
+            display: inline-block;
+        }
+        .text-success { color: #38a169; font-weight: bold; }
+        .text-danger { color: #e53e3e; font-weight: bold; }
+
+        @media (max-width: 768px) {
+            body { padding: 10px 5px; background-color: #fff; }
+            .container { padding: 15px; border-radius: 0; box-shadow: none; }
+            .header h1 { font-size: 1.4em; }
+            .grid-2, .grid-3, .result-grid { grid-template-columns: 1fr; gap: 12px; }
+            .section { padding: 15px; border-radius: 6px; }
+            label { padding: 10px 0; border-bottom: 1px solid #edf2f7; margin-bottom: 0; }
+            label:last-child { border-bottom: none; }
+            input[type="checkbox"], input[type="radio"] { width: 22px; height: 22px; margin-right: 12px; }
+            .calc-btn { padding: 18px; font-size: 1.1em; margin-bottom: 20px;}
+            .results-container { padding: 15px; border-radius: 8px; margin: 20px 0; }
+            .result-item { display: flex; flex-direction: column; }
+            .info-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>ĐÁNH GIÁ CHU PHẪU MẠCH MÁU</h1>
+        <h2>Khoa Ngoại Lồng Ngực- Bệnh viện Đa khoa Thống Nhất TP Đồng Nai</h2>
+    </div>
+
+    <div class="section" style="background: #ebf8ff; border-left-color: #3182ce;">
+        <h3>📋 Thông Tin Bệnh Nhân</h3>
+        <div class="grid-3">
+            <div class="form-group">
+                <label style="border:none; padding-bottom:0; font-weight: bold;">Họ và tên:</label>
+                <input type="text" id="patient-name" placeholder="Nhập tên bệnh nhân">
+            </div>
+            <div class="form-group">
+                <label style="border:none; padding-bottom:0; font-weight: bold;">Tuổi:</label>
+                <input type="number" id="patient-age" placeholder="Nhập tuổi" pattern="[0-9]*" inputmode="numeric">
+                <small style="color: #718096; font-size: 0.85em;">*Tự động đồng bộ với điểm Thận & Hô hấp</small>
+            </div>
+            <div class="form-group">
+                <label style="border:none; padding-bottom:0; font-weight: bold;">Mã bệnh nhân (ID):</label>
+                <input type="text" id="patient-id" placeholder="Nhập mã BA/ID">
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>1. Nguy Cơ Tim Mạch (RCRI)</h3>
+        <div class="grid-2">
+            <label><input type="checkbox" class="rcri-item"> Phẫu thuật nguy cơ cao (bụng/ngực/bẹn)</label>
+            <label><input type="checkbox" class="rcri-item"> Bệnh tim thiếu máu cục bộ (IHD)</label>
+            <label><input type="checkbox" class="rcri-item"> Suy tim sung huyết (CHF)</label>
+            <label><input type="checkbox" class="rcri-item"> Bệnh lý mạch máu não (CVD/TIA)</label>
+            <label><input type="checkbox" class="rcri-item"> Đái tháo đường đang dùng Insulin</label>
+            <label><input type="checkbox" class="rcri-item"> Creatinine trước mổ > 2.0 mg/dL</label>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>2. Mức Độ Đe Dọa Chi (WIfI)</h3>
+        <div class="grid-3">
+            <div class="radio-group">
+                <h4>Vết thương (Wound)</h4>
+                <label><input type="radio" name="wifi-w" value="0" checked> W0: Không loét/hoại tử</label>
+                <label><input type="radio" name="wifi-w" value="1"> W1: Loét nông</label>
+                <label><input type="radio" name="wifi-w" value="2"> W2: Loét sâu, lộ xương</label>
+                <label><input type="radio" name="wifi-w" value="3"> W3: Hoại tử gót/cổ chân</label>
+            </div>
+            <div class="radio-group">
+                <h4>Thiếu máu (Ischemia)</h4>
+                <label><input type="radio" name="wifi-i" value="0" checked> I0: ABI ≥ 0.8</label>
+                <label><input type="radio" name="wifi-i" value="1"> I1: ABI 0.60 - 0.79</label>
+                <label><input type="radio" name="wifi-i" value="2"> I2: ABI 0.40 - 0.59</label>
+                <label><input type="radio" name="wifi-i" value="3"> I3: ABI ≤ 0.39</label>
+            </div>
+            <div class="radio-group">
+                <h4>Nhiễm trùng (Infection)</h4>
+                <label><input type="radio" name="wifi-fi" value="0" checked> fI0: Không nhiễm</label>
+                <label><input type="radio" name="wifi-fi" value="1"> fI1: Nhẹ (< 2cm)</label>
+                <label><input type="radio" name="wifi-fi" value="2"> fI2: Vừa (Viêm sâu/xương)</label>
+                <label><input type="radio" name="wifi-fi" value="3"> fI3: Nặng (SIRS)</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="section vein-group">
+        <h3>3. Khảo Sát Tĩnh Mạch Ghép</h3>
+        <div class="grid-2">
+            <label><input type="radio" name="vein-map" value="1" checked> <strong>ĐẠT CHUẨN:</strong> ≥ 3mm, liên tục.</label>
+            <label><input type="radio" name="vein-map" value="0"> <strong>KHÔNG ĐẠT:</strong> < 3mm, đứt đoạn.</label>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>4. Nguy Cơ Thận (Mehran CI-AKI)</h3>
+        <label><input type="checkbox" class="mehran-cb" value="5"> Tụt huyết áp / Shock</label>
+        <label><input type="checkbox" class="mehran-cb" value="5"> Suy tim sung huyết</label>
+        <label><input type="checkbox" id="mehran-age-cb" class="mehran-cb" value="4"> Tuổi > 75 (Tự động)</label>
+        <label><input type="checkbox" class="mehran-cb" value="3"> Đái tháo đường</label>
+        <div class="form-group" style="margin-top: 15px;">
+            <label style="border:none; padding-bottom:0;">Mức lọc cầu thận (eGFR): </label>
+            <select id="mehran-egfr">
+                <option value="0">≥ 60 mL/min (0đ)</option>
+                <option value="2">40 - 59 mL/min (2đ)</option>
+                <option value="4">20 - 39 mL/min (4đ)</option>
+                <option value="6">< 20 mL/min (6đ)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label style="border:none; padding-bottom:0;">Thuốc cản quang dự kiến (mL):</label>
+            <input type="number" id="mehran-volume" value="100" pattern="[0-9]*" inputmode="numeric">
+        </div>
+    </div>
+    
+    <div class="section">
+        <h3>5. Nguy Cơ Hô Hấp (ARISCAT)</h3>
+        <div class="form-group">
+            <label style="border:none; padding-bottom:0;">Độ tuổi (Tự động):</label>
+            <select id="ariscat-age">
+                <option value="0">≤ 50 tuổi (0đ)</option>
+                <option value="3">51 - 80 tuổi (3đ)</option>
+                <option value="16">> 80 tuổi (16đ)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label style="border:none; padding-bottom:0;">SpO2 trước mổ:</label>
+            <select id="ariscat-spo2">
+                <option value="0">≥ 96% (0đ)</option>
+                <option value="8">91 - 95% (8đ)</option>
+                <option value="24">≤ 90% (24đ)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label style="border:none; padding-bottom:0;">Vị trí mổ:</label>
+            <select id="ariscat-inc">
+                <option value="0">Ngoại vi (Chi dưới/cổ) (0đ)</option>
+                <option value="15">Bụng trên (15đ)</option>
+                <option value="24">Lồng ngực (24đ)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label style="border:none; padding-bottom:0;">Thời gian mổ:</label>
+            <select id="ariscat-dur">
+                <option value="0">< 2 giờ (0đ)</option>
+                <option value="16">2 - 3 giờ (16đ)</option>
+                <option value="23">> 3 giờ (23đ)</option>
+            </select>
+        </div>
+        <label><input type="checkbox" id="ariscat-inf" value="17"> Viêm hô hấp (<1 tháng qua)</label>
+        <label><input type="checkbox" id="ariscat-ane" value="11"> Thiếu máu (Hb ≤ 10 g/dL)</label>
+        <label><input type="checkbox" id="ariscat-em" value="8"> Phẫu thuật cấp cứu</label>
+    </div>
+
+    <button id="btn-calc" class="calc-btn">Phân Tích Kết Quả Đánh Giá</button>
+
+    <div id="results-area" class="results-container">
+        
+        <div class="patient-info-result">
+            <h4>HỒ SƠ BỆNH NHÂN</h4>
+            <div class="info-row">
+                <div><strong>Họ và tên:</strong> <span id="res-name" style="color: #2d3748; text-transform: capitalize;"></span></div>
+                <div><strong>Tuổi:</strong> <span id="res-age" style="color: #2d3748;"></span></div>
+                <div><strong>Mã BN (ID):</strong> <span id="res-id" style="color: #e53e3e; font-weight: bold;"></span></div>
+            </div>
+        </div>
+
+        <div class="result-grid">
+            <div class="result-item">
+                <strong>1. Đánh giá nguy cơ tim mạch (RCRI):</strong> 
+                <div><span id="res-rcri" class="score-highlight"></span></div>
+                <small id="txt-rcri"></small>
+            </div>
+            <div class="result-item">
+                <strong>2. Đánh giá nguy cơ thận (Mehran):</strong> 
+                <div><span id="res-mehran" class="score-highlight"></span></div>
+                <small id="txt-mehran"></small>
+            </div>
+            <div class="result-item">
+                <strong>3. Đánh giá nguy cơ hô hấp (ARISCAT):</strong> 
+                <div><span id="res-ariscat" class="score-highlight"></span></div>
+                <small id="txt-ariscat"></small>
+            </div>
+            <div class="result-item">
+                <strong>4. Đánh giá đe dọa chi (WIfI):</strong> 
+                <div><span id="res-wifi" class="score-highlight"></span></div>
+                <small id="txt-wifi"></small>
+            </div>
+            <div class="result-item">
+                <strong>5. Đánh giá tĩnh mạch ghép:</strong> 
+                <div id="res-vein" style="margin-top: 4px;"></div>
+            </div>
+        </div>
+        
+        <div class="synthesis-box">
+            <div class="synthesis-title">🎯 ĐỊNH HƯỚNG XỬ TRÍ LÂM SÀNG</div>
+            <div id="res-synthesis" style="font-size: 1.05em; color: #2d3748;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const wifi_stages = [
+        [ [1,1,2,3], [1,1,2,3], [1,2,3,4], [2,3,4,4] ],
+        [ [1,2,3,4], [2,2,3,4], [3,3,4,4], [3,4,4,4] ],
+        [ [2,3,4,4], [3,3,4,4], [4,4,4,4], [4,4,4,4] ],
+        [ [3,4,4,4], [4,4,4,4], [4,4,4,4], [4,4,4,4] ]
+    ];
+
+    // Tự động đồng bộ tuổi vào Mehran và ARISCAT
+    document.getElementById('patient-age').addEventListener('input', function(e) {
+        let age = parseInt(e.target.value);
+        if (!isNaN(age)) {
+            // Đồng bộ ARISCAT
+            let ariscatAge = document.getElementById('ariscat-age');
+            if (age <= 50) ariscatAge.value = "0";
+            else if (age <= 80) ariscatAge.value = "3";
+            else ariscatAge.value = "16";
+
+            // Đồng bộ Mehran
+            document.getElementById('mehran-age-cb').checked = (age > 75);
+        }
+    });
+
+    function calculateAll() {
+        // Cập nhật Thông tin bệnh nhân
+        document.getElementById('res-name').innerText = document.getElementById('patient-name').value || "Chưa nhập";
+        document.getElementById('res-age').innerText = document.getElementById('patient-age').value || "Chưa nhập";
+        document.getElementById('res-id').innerText = document.getElementById('patient-id').value || "Chưa nhập";
+
+        let rcriScore = 0;
+        document.querySelectorAll('.rcri-item').forEach(cb => { if(cb.checked) rcriScore++; });
+        let rcriClass = (rcriScore === 0) ? 1 : (rcriScore === 1) ? 2 : (rcriScore === 2) ? 3 : 4;
+        let rcriRisk = (rcriScore === 0) ? "0.4%" : (rcriScore === 1) ? "0.9%" : (rcriScore === 2) ? "6.6%" : ">11%";
+        document.getElementById('res-rcri').innerText = `Class ${rcriClass} (${rcriScore}đ)`;
+        document.getElementById('txt-rcri').innerText = `MACE: ${rcriRisk}`;
+
+        let mehran = 0;
+        document.querySelectorAll('.mehran-cb').forEach(cb => { if(cb.checked) mehran += parseInt(cb.value); });
+        mehran += parseInt(document.getElementById('mehran-egfr').value);
+        let vol = parseInt(document.getElementById('mehran-volume').value) || 0;
+        mehran += Math.floor(vol/100);
+        document.getElementById('res-mehran').innerText = `${mehran} điểm`;
+        document.getElementById('txt-mehran').innerText = (mehran <= 5) ? "CI-AKI: Thấp" : (mehran <= 10) ? "CI-AKI: TB" : "CI-AKI: Cao";
+
+        let ariscat = parseInt(document.getElementById('ariscat-age').value) + 
+                      parseInt(document.getElementById('ariscat-spo2').value) + 
+                      parseInt(document.getElementById('ariscat-inc').value) +
+                      parseInt(document.getElementById('ariscat-dur').value);
+        if(document.getElementById('ariscat-inf').checked) ariscat += 17;
+        if(document.getElementById('ariscat-ane').checked) ariscat += 11;
+        if(document.getElementById('ariscat-em').checked) ariscat += 8;
+        let ariscatRisk = (ariscat < 26) ? "PPC: Thấp" : (ariscat <= 44) ? "PPC: TB" : "PPC: Cao";
+        document.getElementById('res-ariscat').innerText = `${ariscat} điểm`;
+        document.getElementById('txt-ariscat').innerText = ariscatRisk;
+
+        let w = parseInt(document.querySelector('input[name="wifi-w"]:checked').value);
+        let i = parseInt(document.querySelector('input[name="wifi-i"]:checked').value);
+        let fi = parseInt(document.querySelector('input[name="wifi-fi"]:checked').value);
+        let wifiStage = wifi_stages[fi][i][w];
+        document.getElementById('res-wifi').innerText = `Stage ${wifiStage}`;
+        document.getElementById('txt-wifi').innerText = `(W${w} - I${i} - fI${fi})`;
+
+        let veinStatus = parseInt(document.querySelector('input[name="vein-map"]:checked').value);
+        document.getElementById('res-vein').innerHTML = (veinStatus === 1) ? `<span class="text-success">Đạt chuẩn</span>` : `<span class="text-danger">Không đạt</span>`;
+
+        let synthesisText = "";
+        if (wifiStage === 1) {
+            synthesisText = "<strong>▶ Giai đoạn 1:</strong> Chỉ cần nội khoa tối ưu. Trì hoãn can thiệp tái lưu thông mạch máu.";
+        } else if (wifiStage === 4) {
+            synthesisText = "<strong>▶ Giai đoạn 4:</strong> Tổn thương quá nặng/Nhiễm trùng. Chỉ định tái lưu thông khẩn. Nếu không có mạch nhận, xét cắt cụt chủ động.";
+        } else {
+            synthesisText = `<strong>▶ Giai đoạn ${wifiStage}:</strong> Có chỉ định tái lưu thông cứu chi.<br><br>`;
+            if (rcriClass <= 2) {
+                if (veinStatus === 1) {
+                    synthesisText += `<em>Nguy cơ tim mạch (Thấp/Vừa) + Tĩnh mạch tốt:</em><br><strong>=> Khuyến cáo: Ưu tiên MỔ MỞ BẮC CẦU (Open Bypass).</strong>`;
+                } else {
+                    synthesisText += `<em>Nguy cơ tim mạch (Thấp/Vừa) + Tĩnh mạch hỏng:</em><br><strong>=> Khuyến cáo: Chuyển hướng CAN THIỆP NỘI MẠCH.</strong>`;
+                }
+            } else {
+                synthesisText += `<em>Nguy cơ tim mạch CAO (Class ${rcriClass}):</em><br><strong>=> Khuyến cáo: Ưu tiên CAN THIỆP NỘI MẠCH (Endovascular)</strong> để giảm thiểu tai biến chu phẫu.`;
+            }
+        }
+        document.getElementById('res-synthesis').innerHTML = synthesisText;
+    }
+
+    document.getElementById('btn-calc').addEventListener('click', function() {
+        calculateAll();
+        const resultsArea = document.getElementById('results-area');
+        resultsArea.classList.add('show');
+        setTimeout(() => {
+            resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    });
+</script>
+
+</body>
+</html>

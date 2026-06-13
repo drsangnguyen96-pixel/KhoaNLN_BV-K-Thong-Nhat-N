@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Hệ Thống Đánh Giá Lâm Sàng - Khoa Ngoại Lồng Ngực</title>
+    <style>
+        /* ================= CSS TỔNG THỂ SPA ================= */
+        :root {
+            --primary-color: #2b6cb0;
+            --sidebar-bg: #2d3748;
+            --sidebar-hover: #4a5568;
+            --text-light: #edf2f7;
+            --bg-light: #e2e8f0;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0; padding: 0; display: flex; height: 100vh;
+            background-color: var(--bg-light); color: #2d3748; overflow: hidden;
+        }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar {
+            width: 320px; background-color: var(--sidebar-bg); color: var(--text-light);
+            display: flex; flex-direction: column; box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto; flex-shrink: 0; z-index: 10;
+        }
+        .sidebar-header {
+            padding: 20px; background-color: #1a202c; text-align: center; border-bottom: 1px solid #4a5568;
+        }
+        .sidebar-header h2 { margin: 0; font-size: 1.2em; color: #63b3ed; }
+        .sidebar-header p { margin: 5px 0 0 0; font-size: 0.85em; color: #a0aec0; }
+
+        /* Tree Menu Styles */
+        ul.tree { list-style-type: none; padding: 15px; margin: 0; }
+        ul.tree ul { list-style-type: none; padding-left: 20px; display: none; }
+        ul.tree ul.active { display: block; }
+        ul.tree li { margin: 5px 0; }
+        
+        .folder {
+            cursor: pointer; font-weight: bold; padding: 10px; border-radius: 6px;
+            display: flex; align-items: center; user-select: none;
+            background-color: #2d3748; transition: background-color 0.2s;
+        }
+        .folder:hover { background-color: var(--sidebar-hover); }
+        .folder::before {
+            content: "▶"; display: inline-block; margin-right: 10px; font-size: 0.8em; transition: transform 0.2s;
+        }
+        .folder.open::before { transform: rotate(90deg); }
+        
+        .file {
+            cursor: pointer; padding: 10px 10px 10px 30px; border-radius: 6px;
+            color: #cbd5e0; font-size: 0.95em; display: block; margin-top: 5px; transition: all 0.2s;
+        }
+        .file:hover, .file.active { background-color: var(--primary-color); color: white; font-weight: 500; }
+        .file::before { content: "📄"; margin-right: 8px; font-size: 0.9em; }
+
+        /* ================= MAIN CONTENT ================= */
+        .main-content {
+            flex-grow: 1; padding: 0; overflow: hidden; position: relative; display: flex; flex-direction: column;
+        }
+        .welcome-screen {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            height: 100%; color: #718096; text-align: center; padding: 20px;
+        }
+        .welcome-screen h1 { color: #2b6cb0; }
+        
+        /* Ẩn hiện các Form Plugin */
+        .plugin-form { display: none; width: 100%; height: 100%; animation: fadeIn 0.4s; }
+        .plugin-form.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 768px) {
+            body { flex-direction: column; overflow: auto; height: auto;}
+            .sidebar { width: 100%; height: auto; max-height: 40vh; overflow-y: auto; }
+            .main-content { height: 60vh; }
+        }
+        
+        /* IFRAME STYLE TỐI ƯU HIỂN THỊ */
+        iframe.form-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>HỆ THỐNG HUB LÂM SÀNG</h2>
+            <p>Khoa Ngoại Lồng Ngực_ BVĐK Thống Nhất</p>
+        </div>
+        
+        <ul class="tree" id="auto-generated-menu"></ul>
+    </div>
+
+    <div class="main-content" id="main-container">
+        
+        <div id="panel-welcome" class="plugin-form active">
+            <div class="welcome-screen">
+                <h1>TRUNG TÂM QUẢN LÝ CÔNG CỤ LÂM SÀNG</h1>
+                <p>Hệ thống Hub Quản trị dành cho Khoa Ngoại Lồng Ngực - Mạch Máu</p>
+                <p style="color:#a0aec0; font-size:0.9em; margin-top: 20px;">Hệ thống đang trống. Vui lòng nhúng file HTML của các bác sĩ vào file gốc bằng Iframe để bắt đầu.</p>
+            </div>
+        </div>
+	<div class="plugin-form" data-folder="1. Mạch Máu" data-name="Đánh giá P&L trong PLAN">
+    <iframe class="form-frame" src="Bang_Kiem_MM1.html"></iframe>
+</div>
+	<div class="plugin-form" data-folder="1. Mạch Máu" data-name="Thang điểm Rutherford">
+    <iframe class="form-frame" src="Rutherford_Classification.html"></iframe>
+</div>
+	<div class="plugin-form" data-folder="2. Huyết khối tĩnh mạch" data-name="Thang điểm Caprini">
+    <iframe class="form-frame" src="Caprini_VTE.html"></iframe>
+</div>
+	<div class="plugin-form" data-folder="2. Huyết khối tĩnh mạch" data-name="Thang điểm Geneva đánh giá thuyên tắc phổi">
+    <iframe class="form-frame" src="Geneva_PE.html"></iframe>
+</div>
+	<div class="plugin-form" data-folder="2. Huyết khối tĩnh mạch" data-name="Thang điểm Padua đánh giá VTE ở bệnh nhân nội khoa">
+    <iframe class="form-frame" src="Padua_VTE.html"></iframe>
+</div>
+	<div class="plugin-form" data-folder="2. Huyết khối tĩnh mạch" data-name="Thang điểm sPESI đánh giá thuyên tắc phổi nhanh">
+    <iframe class="form-frame" src="sPESI_PE.html"></iframe>
+</div>
+	<div class="plugin-form" data-folder="2. Huyết khối tĩnh mạch" data-name="Thang điểm Villalta đánh giá hội chứng hậu huyết khối">
+    <iframe class="form-frame" src="Villalta_PTS.html"></iframe>
+</div>
+	<div class="plugin-form" data-folder="2. Huyết khối tĩnh mạch" data-name="Thang điểm Wells đánh giá huyết khối tĩnh mạch sâu">
+    <iframe class="form-frame" src="Wells_DVT.html"></iframe>
+</div>
+	<div class="plugin-form" data-folder="2. Huyết khối tĩnh mạch" data-name="Thang điểm Wells đánh giá thuyên tắc phổi">
+    <iframe class="form-frame" src="Wells_PE.html"></iframe>
+</div>
+
+</div>
+	<div class="plugin-form" data-folder="1. Mạch Máu" data-name="Đánh giá A trong PLAN">
+    <iframe class="form-frame" src="Bang_Kiem_MM2.html"></iframe>
+        </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuContainer = document.getElementById('auto-generated-menu');
+            const allForms = document.querySelectorAll('.plugin-form');
+            
+            // 1. Quét dữ liệu và xây dựng cấu trúc Map thư mục
+            const systemTree = {};
+            let hasPlugins = false;
+
+            allForms.forEach((form, index) => {
+                // Bỏ qua màn hình Welcome
+                if(form.id === 'panel-welcome') return;
+
+                hasPlugins = true;
+
+                // Tạo ID tự động nếu form chưa có
+                const formId = form.id || `auto-form-${index}`;
+                form.id = formId;
+
+                const folderName = form.getAttribute('data-folder') || 'Công cụ Khác';
+                const formName = form.getAttribute('data-name') || `Bảng đánh giá ${index}`;
+
+                if (!systemTree[folderName]) {
+                    systemTree[folderName] = [];
+                }
+                systemTree[folderName].push({ id: formId, name: formName });
+            });
+
+            // Nếu không có plugin nào, hiện thông báo trống ở Menu
+            if (!hasPlugins) {
+                menuContainer.innerHTML = `<li style="text-align:center; color:#a0aec0; padding-top:20px; font-size:0.9em;">[Hệ thống chưa có Form nào]</li>`;
+                return;
+            }
+
+            // 2. Vẽ Menu HTML tự động
+            let menuHTML = '';
+            for (const [folder, files] of Object.entries(systemTree)) {
+                menuHTML += `
+                    <li>
+                        <div class="folder">${folder}</div>
+                        <ul>
+                `;
+                
+                files.forEach(file => {
+                    menuHTML += `<li><div class="file" data-target="${file.id}">${file.name}</div></li>`;
+                });
+
+                menuHTML += `</ul></li>`;
+            }
+            menuContainer.innerHTML = menuHTML;
+
+            // Mở thư mục đầu tiên làm mặc định
+            const firstFolder = menuContainer.querySelector('.folder');
+            const firstSubMenu = menuContainer.querySelector('ul');
+            if(firstFolder && firstSubMenu) {
+                firstFolder.classList.add('open');
+                firstSubMenu.classList.add('active');
+            }
+
+            // 3. Kích hoạt tính năng Click trên Menu mới tạo
+            const folders = document.querySelectorAll('.folder');
+            folders.forEach(folder => {
+                folder.addEventListener('click', function() {
+                    this.classList.toggle('open');
+                    const subMenu = this.nextElementSibling;
+                    if(subMenu) subMenu.classList.toggle('active');
+                });
+            });
+
+            const fileButtons = document.querySelectorAll('.file');
+            fileButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Cập nhật trạng thái màu sắc ở menu
+                    document.querySelectorAll('.file').forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Ẩn tất cả các form
+                    allForms.forEach(f => f.classList.remove('active'));
+
+                    // Hiện form được chọn
+                    const targetId = this.getAttribute('data-target');
+                    if (targetId) {
+                        const targetPanel = document.getElementById(targetId);
+                        if(targetPanel) {
+                            targetPanel.classList.add('active');
+                        }
+                        
+                        // Scroll top trên điện thoại
+                        if (window.innerWidth <= 768) {
+                            document.querySelector('.main-content').scrollTop = 0;
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
